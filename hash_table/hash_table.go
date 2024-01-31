@@ -93,19 +93,18 @@ func (h *HashTable) Delete(key string) {
 func main() {
 	hashTable := InitializeHashTable()
 
-	fmt.Println(hashTable)
-	hashTable.Insert("Viet")
-	hashTable.Insert("Nam")
-
-	fmt.Println(hashTable.Search("Viet"))
-	hashTable.Delete("Viet")
-	fmt.Println(hashTable.Search("Viet"))
-	fmt.Println(hashTable.Search("Nam"))
-	hashTable.Delete("Nam")
-	fmt.Println(hashTable.Search("Nam"))
-
-	fmt.Println(hashTable.Search("smt"))
-	hashTable.Insert("smt")
-	fmt.Println(hashTable.Search("smt"))
-
+	list := []string{
+		"ERIC",
+		"KENNY",
+		"KYLE",
+		"STAN",
+		"RANDY",
+		"BUTTERS",
+		"TOKEN",
+	}
+	for _, v := range list {
+		hashTable.Insert(v)
+	}
+	fmt.Println(hashTable.Search("STAN"))
+	fmt.Println(hashTable.Search("TOKEN"))
 }
