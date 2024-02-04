@@ -49,7 +49,7 @@ func main() {
 	nums := []int{0, 1, 2, 2, 3, 0, 4, 2} // Input array
 	val := 2                              // Value to remove
 
-	k := removeElement(nums, val) // Calls your implementation
+	k := removeElementOptimize(nums, val) // Calls your implementation
 
 	println(k)
 }
