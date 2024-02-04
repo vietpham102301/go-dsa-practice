@@ -29,6 +29,7 @@ func removeDuplicatesIntuition(nums []int) int {
 	return index
 }
 
+// one by one fill the right number from left to right to position from 1 to the rest each time count the right assignment
 func removeDuplicatesOptimize(nums []int) int {
 	index := 1
 	for i := 1; i < len(nums); i++ {

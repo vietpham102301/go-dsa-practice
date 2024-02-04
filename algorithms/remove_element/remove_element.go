@@ -1,5 +1,6 @@
 package main
 
+// one by one put the right number into the index that contains element that need to remove
 func removeElementOptimize(nums []int, val int) int {
 	count := 0
 
