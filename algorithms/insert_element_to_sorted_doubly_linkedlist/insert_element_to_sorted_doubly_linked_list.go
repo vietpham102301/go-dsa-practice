@@ -10,66 +10,72 @@ type DoublyLinkedListNode struct {
 	prev *DoublyLinkedListNode
 }
 
-// sortedInsert this is the incorrect solution, will fix that later
 func sortedInsert(llist *DoublyLinkedListNode, data int32) *DoublyLinkedListNode {
-	node := &DoublyLinkedListNode{
-		data: data,
-		next: nil,
-		prev: nil,
-	}
 	if llist == nil {
-		llist = node
+		llist = &DoublyLinkedListNode{
+			data: data,
+			prev: nil,
+			next: nil,
+		}
 		return llist
 	}
 
-	currentElement := llist
-
-	if currentElement.next == nil {
-		if data < currentElement.data {
-			currentElement.prev = node
-			node.next = currentElement
-			return node
-		} else {
-			currentElement.next = node
-			node.prev = currentElement
-			return currentElement
+	if llist.next == nil && llist.data < data {
+		llist.next = &DoublyLinkedListNode{
+			data: data,
+			next: nil,
+			prev: llist,
 		}
-	}
-	head := currentElement
-
-	for currentElement.next != nil {
-		if data >= currentElement.data {
-			currentElement = currentElement.next
-		} else {
-			isFirst := false
-			node.next = currentElement
-			if currentElement.prev != nil {
-				currentElement.prev.next = node
-				isFirst = true
-			} else {
-				return node
-			}
-			tempPrev := currentElement.prev
-			currentElement.prev = node
-			node.prev = tempPrev
-			if isFirst == true {
-				return node
-			}
-			return head
+		return llist
+	} else if llist.next == nil && llist.data >= data {
+		llist.prev = &DoublyLinkedListNode{
+			data: data,
+			next: llist,
+			prev: nil,
 		}
+		return llist.prev
 	}
-	if data > currentElement.data {
-		currentElement.next = node
-		node.prev = currentElement
-	} else {
-		currentElement.prev.next = node
-		node.prev = currentElement.prev
-		currentElement.prev = node
-		node.next = currentElement
+
+	//travel the linked list to find the correct position to insert
+	current := llist
+	for current.next != nil && current.data < data {
+		current = current.next
+	}
+
+	// if we insert at the head of the list current.prev = nil
+	if current.prev == nil {
+		current.prev = &DoublyLinkedListNode{
+			data: data,
+			next: current,
+			prev: nil,
+		}
+
+		return current.prev
 
 	}
 
-	return head
+	//insert at last position
+	if current.next == nil && current.data < data {
+		current.next = &DoublyLinkedListNode{
+			data: data,
+			next: nil,
+			prev: current,
+		}
+
+		return llist
+	}
+
+	//insert at any position
+	current.prev.next = &DoublyLinkedListNode{
+		data: data,
+		next: current,
+		prev: current.prev,
+	}
+
+	current.prev = current.prev.next
+
+	return llist
+
 }
 
 func printList(llist *DoublyLinkedListNode) {
@@ -85,10 +91,10 @@ func main() {
 	var llist *DoublyLinkedListNode
 
 	// Insert some elements into the list
+	llist = sortedInsert(llist, 1)
 	llist = sortedInsert(llist, 2)
 	llist = sortedInsert(llist, 3)
 	llist = sortedInsert(llist, 4)
-	llist = sortedInsert(llist, 1)
 
 	// Print the list to verify the elements are inserted in sorted order
 	printList(llist)
