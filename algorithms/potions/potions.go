@@ -100,15 +100,15 @@ func main() {
 	pq := MinHeap{}
 	life := 0
 	count := 0
-	potions := make([]int, n)
+	var x int
 	for i := 0; i < n; i++ {
-		if _, err := fmt.Scan(&potions[i]); err != nil {
+		if _, err := fmt.Scan(&x); err != nil {
 			fmt.Printf("Error reading potion effect: %v\n", err)
 			return
 		}
-		life += potions[i]
+		life += x
 		count++
-		pq.Insert(potions[i])
+		pq.Insert(x)
 		if life < 0 {
 			life -= pq.Extract()
 			count--
@@ -116,4 +116,5 @@ func main() {
 	}
 
 	fmt.Println(count)
+
 }
