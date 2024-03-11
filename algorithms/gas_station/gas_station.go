@@ -35,11 +35,11 @@ import "fmt"
 func canCompleteCircuit(gas []int, cost []int) int {
 	l := len(gas)
 	startingPoint := 0
-	totalFuelAndConsumsion := 0
+	totalFuelAndConsumption := 0
 	totalFuelFromStartIndex := 0
 
 	for i := 0; i < l; i++ {
-		totalFuelAndConsumsion += gas[i] - cost[i]
+		totalFuelAndConsumption += gas[i] - cost[i]
 		totalFuelFromStartIndex += gas[i] - cost[i]
 
 		if totalFuelFromStartIndex < 0 {
@@ -48,7 +48,7 @@ func canCompleteCircuit(gas []int, cost []int) int {
 		}
 	}
 
-	if totalFuelAndConsumsion >= 0 {
+	if totalFuelAndConsumption >= 0 {
 		return startingPoint
 	}
 
