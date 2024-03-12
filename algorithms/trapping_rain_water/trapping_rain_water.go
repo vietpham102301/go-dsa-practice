@@ -5,6 +5,7 @@ import (
 	"math"
 )
 
+// trapp
 func trap(height []int) int {
 	res := 0
 	cur := 0
