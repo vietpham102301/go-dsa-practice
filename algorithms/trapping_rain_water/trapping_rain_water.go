@@ -67,7 +67,7 @@ import (
 //	return res
 //}
 
-// O(n) time, O(1) space
+//O(n) time, O(1) space
 //func trap(height []int) int {
 //	l, r := 0, len(height)-1
 //	lMax := height[l]
