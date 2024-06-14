@@ -50,6 +50,25 @@ func (l *LinkedList) removeDups() {
 	}
 }
 
+func (l *LinkedList) removeDups2() {
+	hashMap := make(map[int]bool)
+
+	curr := l.head
+
+	hashMap[curr.data] = true
+
+	for curr.next != nil {
+		isAppeared := hashMap[curr.next.data]
+		if isAppeared {
+			curr.next = curr.next.next
+			continue
+		} else {
+			hashMap[curr.next.data] = true
+		}
+		curr = curr.next
+	}
+}
+
 func main() {
 	node1 := &Node{data: 1}
 	node2 := &Node{data: 1}
@@ -69,7 +88,7 @@ func main() {
 
 	linkedList.printList()
 
-	linkedList.removeDups()
+	linkedList.removeDups2()
 	fmt.Println()
 	fmt.Println("after remove dups")
 	linkedList.printList()

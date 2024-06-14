@@ -58,6 +58,7 @@ func (l LinkedList) printList() {
 	fmt.Println()
 }
 
+// other approach is to use recursion
 func addTwoLinkedList1(l1, l2 LinkedList) LinkedList {
 	curr1, curr2 := l1.tail, l2.tail
 

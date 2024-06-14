@@ -25,6 +25,7 @@ func (l LinkedList) printList() {
 	fmt.Println()
 }
 
+// not the case problem intend
 func (l *LinkedList) deleteNode(n *Node) {
 	curr := l.head
 
@@ -39,6 +40,19 @@ func (l *LinkedList) deleteNode(n *Node) {
 		}
 		curr = curr.next
 	}
+}
+
+// can't delete if the node is the last node, if need to handle that maybe create a dummy node.
+func deleteNode(n *Node) bool {
+	if n == nil || n.next == nil {
+		return false
+	}
+
+	nextNode := n.next
+	n.data = nextNode.data
+	n.next = nextNode.next
+
+	return true
 }
 
 func main() {
@@ -62,6 +76,7 @@ func main() {
 
 	midNode := node4
 
-	linkedList.deleteNode(midNode)
+	//linkedList.deleteNode(midNode)
+	deleteNode(midNode)
 	linkedList.printList()
 }

@@ -56,7 +56,9 @@ func detectLoopNode2(l LinkedList) *Node {
 			break
 		}
 	}
-
+	if fast == nil || fast.next == nil {
+		return nil
+	}
 	// find first point
 	slow = l.head
 

@@ -18,14 +18,47 @@ func (l *LinkedList) prepend(n *Node) {
 
 func (l LinkedList) printList() {
 	curr := l.head
+
 	for curr != nil {
 		fmt.Printf("%d, ", curr.data)
 		curr = curr.next
 	}
+
 	fmt.Println()
 }
 
-func (l *LinkedList) partition(val int) {
+func (l *LinkedList) partitioner(val int) {
+	curr := l.head
+	flag := false
+	var lastNode *Node
+	for curr != nil {
+		if curr.data >= val {
+			newNode := &Node{data: curr.data}
+			l.prepend(newNode)
+			if !flag {
+				lastNode = newNode
+				flag = true
+			}
+		}
+		curr = curr.next
+	}
+	if !flag {
+		return
+	}
+	curr2 := lastNode.next
+
+	for curr2 != nil {
+		if curr2.data < val {
+			newNode := &Node{data: curr2.data}
+			l.prepend(newNode)
+		}
+		curr2 = curr2.next
+	}
+
+	lastNode.next = nil
+}
+
+func (l *LinkedList) partitioner2(val int) {
 	if l.head == nil {
 		return
 	}
@@ -64,6 +97,29 @@ func (l *LinkedList) partition(val int) {
 	}
 }
 
+func (l *LinkedList) partitioner3(val int) {
+	head := l.head
+	tail := l.head
+
+	curr := l.head
+
+	for curr != nil {
+		next := curr.next
+		if curr.data < val {
+			curr.next = head
+			head = curr
+		} else {
+			tail.next = curr
+			tail = curr
+		}
+		curr = next
+	}
+
+	tail.next = nil
+
+	l.head = head
+}
+
 func main() {
 	node1 := &Node{data: 3}
 	node2 := &Node{data: 5}
@@ -74,19 +130,16 @@ func main() {
 	node7 := &Node{data: 1}
 
 	linkedList := LinkedList{}
-	linkedList.prepend(node7)
+
+	linkedList.prepend(node1)
 	linkedList.prepend(node6)
 	linkedList.prepend(node5)
-	linkedList.prepend(node4)
 	linkedList.prepend(node3)
+	linkedList.prepend(node4)
 	linkedList.prepend(node2)
-	linkedList.prepend(node1)
+	linkedList.prepend(node7)
 
-	fmt.Println("Original list:")
 	linkedList.printList()
-
-	linkedList.partition(5)
-
-	fmt.Println("Partitioned list:")
+	linkedList.partitioner3(5)
 	linkedList.printList()
 }
