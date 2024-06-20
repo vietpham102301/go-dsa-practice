@@ -22,7 +22,7 @@ func (g *Graph) addVertex(key int) {
 
 // Add edge
 func (g *Graph) addEdge(from int, to int) {
-	//checking if the "from" and "to" is already in the graph?
+	//checking if the "from" and "to" is already in the graph_representation_and_traversal?
 	if !contains(g.vertices, from) || !contains(g.vertices, to) {
 		return
 	}
