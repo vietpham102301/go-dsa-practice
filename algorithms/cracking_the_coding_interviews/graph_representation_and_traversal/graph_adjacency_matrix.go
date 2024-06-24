@@ -27,17 +27,17 @@ func printMatrix(matrix [][]int) {
 	}
 }
 
-func main() {
-	n := 5
-	edges := [][2]int{
-		{1, 2},
-		{2, 3},
-		{3, 4},
-		{4, 5},
-		{3, 5},
-	}
+// func main() {
+// 	n := 5
+// 	edges := [][2]int{
+// 		{1, 2},
+// 		{2, 3},
+// 		{3, 4},
+// 		{4, 5},
+// 		{3, 5},
+// 	}
 
-	adjMatrix := createAdjacencyMatrix(n, edges)
+// 	adjMatrix := createAdjacencyMatrix(n, edges)
 
-	printMatrix(adjMatrix)
-}
+// 	printMatrix(adjMatrix)
+// }
