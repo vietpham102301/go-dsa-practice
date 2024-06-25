@@ -20,10 +20,6 @@ var visited [MAX]bool
 var path [MAX]int
 
 func DFS(src int) {
-	for i := 0; i < V; i++ {
-		path[i] = -1
-	}
-
 	s := stack.Stack[int]{}
 
 	visited[src] = true
@@ -44,10 +40,6 @@ func DFS(src int) {
 }
 
 func BFS(src int) {
-	for i := 0; i < V; i++ {
-		path[i] = -1
-	}
-
 	q := queue.Queue[int]{}
 	visited[src] = true
 	q.Add(src)
@@ -61,6 +53,21 @@ func BFS(src int) {
 				q.Add(vertexToVisit)
 				path[vertexToVisit] = *u
 			}
+		}
+	}
+}
+
+func DFSRecursion(src int) {
+	if visited[src] {
+		return
+	}
+
+	visited[src] = true
+	for i := 0; i < len(graph[src]); i++ {
+		vertexToVisit := graph[src][i]
+		if !visited[vertexToVisit] {
+			DFSRecursion(vertexToVisit)
+			path[vertexToVisit] = src
 		}
 	}
 }
@@ -105,6 +112,11 @@ func main() {
 		graph[v] = append(graph[v], u)
 	}
 
-	DFS(0)
+	for i := 0; i < V; i++ {
+		path[i] = -1
+	}
+
+	// DFS(0)
+	DFSRecursion(0)
 	printPath(5)
 }
