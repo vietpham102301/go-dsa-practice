@@ -60,24 +60,9 @@ func (g Graph) printGraph() {
 	}
 }
 
-func main() {
-	graph := Graph{}
+// functionalize the DFS with stack and recursion
 
-	graph.addVertex(1)
-	graph.addVertex(2)
-	graph.addVertex(3)
-	graph.addVertex(4)
-	graph.addVertex(5)
-
-	graph.addEdge(1, 2)
-	graph.addEdge(1, 3)
-	graph.addEdge(2, 3)
-	graph.addEdge(3, 4)
-	graph.addEdge(3, 5)
-	graph.addEdge(4, 5)
-
-	graph.printGraph()
-
+func dfsWithStack(graph Graph, startVertex int, des int) {
 	var visited []int
 	var path []int
 	for i := 0; i < len(graph.vertices)+1; i++ {
@@ -87,7 +72,6 @@ func main() {
 
 	myStack := stack.Stack[int]{}
 
-	startVertex := graph.vertices[0].key
 	visited[startVertex] = 1
 	myStack.Push(startVertex)
 
@@ -100,16 +84,13 @@ func main() {
 				if visited[adjVertex] != 1 {
 					visited[adjVertex] = 1
 					myStack.Push(adjVertex)
-					if path[adjList[j].key] == -1 {
-						path[adjList[j].key] = *visitedVertex
+					if path[adjVertex] == -1 {
+						path[adjVertex] = *visitedVertex
 					}
 				}
 			}
 		}
 	}
-
-	// find path from 1 -> 5
-	des := graph.vertices[4].key
 
 	for des != -1 {
 		myStack.Push(des)
@@ -125,3 +106,25 @@ func main() {
 		}
 	}
 }
+
+// func main() {
+// 	graph := Graph{}
+
+// 	graph.addVertex(1)
+// 	graph.addVertex(2)
+// 	graph.addVertex(3)
+// 	graph.addVertex(4)
+// 	graph.addVertex(5)
+
+// 	graph.addEdge(1, 2)
+// 	graph.addEdge(1, 3)
+// 	graph.addEdge(2, 3)
+// 	graph.addEdge(3, 4)
+// 	graph.addEdge(3, 5)
+// 	graph.addEdge(4, 5)
+
+// 	// graph.printGraph()
+// 	startVertex := graph.vertices[0].key
+// 	des := graph.vertices[4].key
+// 	dfsWithStack(graph, startVertex, des)
+// }
