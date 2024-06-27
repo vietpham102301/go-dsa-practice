@@ -1,19 +1,15 @@
 package main
 
-import (
-	"fmt"
-	"github.com/vietpham102301/go-dsa-practice/algorithms/cracking_the_coding_interviews/queue"
-)
+import "fmt"
+
+func testPassingSlice(s *[]int) {
+	*s = append(*s, 1023)
+}
 
 func main() {
-	myQueue := queue.Queue[int]{}
+	originSlice := []int{1, 2}
 
-	myQueue.Add(1)
-	myQueue.Add(2)
-	myQueue.Add(3)
+	testPassingSlice(&originSlice)
 
-	for !myQueue.IsEmpty() {
-		item, _ := myQueue.Remove()
-		fmt.Println(*item)
-	}
+	fmt.Println(originSlice)
 }
