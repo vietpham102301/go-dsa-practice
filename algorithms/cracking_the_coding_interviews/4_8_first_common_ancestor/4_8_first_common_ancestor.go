@@ -104,6 +104,37 @@ func getSibling(node *TreeNode) *TreeNode {
 	}
 }
 
+// with no links to parent
+func findFirstCommonAncestor3(root, node1, node2 *TreeNode) *TreeNode {
+	if !isCover(root, node1) || !isCover(root, node2) {
+		return nil
+	}
+
+	return helper(root, node1, node2)
+}
+
+func helper(root, node1, node2 *TreeNode) *TreeNode {
+	if root == nil || root == node1 || root == node2 {
+		return root
+	}
+
+	node1IsOnLeft := isCover(root.left, node1)
+	node2IsOnLeft := isCover(root.left, node2)
+
+	if node1IsOnLeft != node2IsOnLeft {
+		return root
+	}
+
+	var childSide *TreeNode
+	if node1IsOnLeft {
+		childSide = root.left
+	} else {
+		childSide = root.right
+	}
+
+	return helper(childSide, node1, node2)
+}
+
 func main() {
 	root := &TreeNode{data: 20}
 	root.left = &TreeNode{data: 10}
@@ -124,7 +155,7 @@ func main() {
 	root.left.left.right = &TreeNode{data: 7}
 	root.left.left.right.parent = root.left.left
 
-	res := findFirstCommonAncestor2(root, root.left.right.right, root.left.left.right)
+	res := findFirstCommonAncestor3(root, root.left.right.right, root.left.left.right)
 
 	fmt.Println(res.data)
 }
