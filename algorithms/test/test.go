@@ -2,14 +2,14 @@ package main
 
 import "fmt"
 
-func f(n int) int {
-	if n <= 1 {
-		return 1
-	}
-
-	return f(n-1) + f(n-1)
+func modifySlice(smt []int) {
+	smt[2] = 123
 }
 
 func main() {
-	fmt.Println(f(6))
+	test := []int{1, 2, 3, 4}
+	modifySlice(test)
+	for _, val := range test {
+		fmt.Printf("%d, ", val)
+	}
 }
