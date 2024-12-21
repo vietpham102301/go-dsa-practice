@@ -2,14 +2,15 @@ package main
 
 import "fmt"
 
-func modifySlice(smt []int) {
-	smt[2] = 123
+func modifySlice(s []int) {
+	copy(s, []int{10, 20, 30})
 }
 
 func main() {
-	test := []int{1, 2, 3, 4}
-	modifySlice(test)
-	for _, val := range test {
-		fmt.Printf("%d, ", val)
-	}
+	original := []int{1, 2, 3}
+	newSlice := make([]int, 3)
+	copy(newSlice, original)
+	modifySlice(newSlice)
+	fmt.Println(original) // Output: [1, 2, 3]
+	fmt.Println(newSlice)
 }
