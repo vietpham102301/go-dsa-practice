@@ -3,37 +3,28 @@ package main
 import "fmt"
 
 func convert(s string, numRows int) string {
-	zigZagStr := [][]string{}
-	res := ""
-
-	tempStr := []string{}
-
-	for i := 0; i < len(s); i++ {
-		tempStr = append(tempStr, string(s[i]))
-		if len(tempStr) == numRows {
-			zigZagStr = append(zigZagStr, tempStr)
-			tempStr = []string{}
-			i--
-		}
+	if numRows == 1 {
+		return s
 	}
-	zigZagStr = append(zigZagStr, tempStr)
-
-	for i := 0; i < numRows; i++ {
-		for j, strs := range zigZagStr {
-			if (j%2) == 0 && i%2 == 0 {
-				if i <= len(strs)-1 {
-					res += strs[i]
-				}
-			}
-			if i%2 != 0 {
-				if i <= len(strs)-1 {
-					res += strs[i]
-				}
-			}
+	rows := make([]string, numRows)
+	rowIndex := 0
+	direction := 1
+	for _, char := range s {
+		rows[rowIndex] += string(char)
+		if rowIndex == 0 {
+			direction = 1
+		} else if rowIndex == numRows-1 {
+			direction = -1
 		}
+		rowIndex += direction
 	}
 
-	return res
+	ret := ""
+	for _, row := range rows {
+		ret += row
+	}
+
+	return ret
 }
 
 func main() {
