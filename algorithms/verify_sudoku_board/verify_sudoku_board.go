@@ -42,7 +42,6 @@ func InitArrSet(cap int) []*HashSet {
 }
 
 func verifySudokuBoard(board [9][9]int) bool {
-
 	rowSet := InitArrSet(9)
 	colSet := InitArrSet(9)
 	subgridSet := InitSubgridSet(3)
