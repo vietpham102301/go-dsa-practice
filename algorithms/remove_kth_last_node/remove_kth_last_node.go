@@ -8,10 +8,15 @@ type Node struct {
 }
 
 func removeKthLastNode(head *Node, k int) *Node {
-	trailer := head
-	leader := head
+	dummyNode := &Node{Value: -1, Next: head}
+
+	trailer := dummyNode
+	leader := dummyNode
 	for i := 0; i < k; i++ {
 		leader = leader.Next
+		if leader == nil {
+			return head
+		}
 	}
 
 	for leader.Next != nil {
