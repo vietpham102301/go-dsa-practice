@@ -8,55 +8,21 @@ type Node struct {
 }
 
 type LRUCache struct {
-	capacity int
-	cache    map[int]*Node
-	head     *Node
-	tail     *Node
+	capacity   int
+	cache      map[int]*Node
+	head, tail *Node
 }
 
-func NewLRUCache(capacity int) *LRUCache {
+func NewLRUCache(cap int) *LRUCache {
 	return &LRUCache{
-		capacity: capacity,
+		capacity: cap,
 		cache:    make(map[int]*Node),
 	}
 }
 
-func (l *LRUCache) removeNode(node *Node) {
-	if node.prev != nil {
-		node.prev.next = node.next
-	} else {
-		l.head = node.next
-	}
-	if node.next != nil {
-		node.next.prev = node.prev
-	} else {
-		l.tail = node.prev
-	}
-}
-
-func (l *LRUCache) addToTail(node *Node) {
-	node.prev = l.tail
-	node.next = nil
-	if l.tail != nil {
-		l.tail.next = node
-	}
-	l.tail = node
-	if l.head == nil {
-		l.head = node
-	}
-}
-
-func (l *LRUCache) moveToTail(node *Node) {
-	if node == l.tail {
-		return
-	}
-	l.removeNode(node)
-	l.addToTail(node)
-}
-
-func (l *LRUCache) Put(key, value int) {
+func (l *LRUCache) Put(key, val int) {
 	if node, exists := l.cache[key]; exists {
-		node.value = value
+		node.value = val
 		l.moveToTail(node)
 		return
 	}
@@ -66,9 +32,9 @@ func (l *LRUCache) Put(key, value int) {
 		l.removeNode(l.head)
 	}
 
-	newNode := &Node{key: key, value: value}
-	l.addToTail(newNode)
-	l.cache[key] = newNode
+	node := &Node{key: key, value: val}
+	l.addToTail(node)
+	l.cache[key] = node
 }
 
 func (l *LRUCache) Get(key int) int {
@@ -76,13 +42,54 @@ func (l *LRUCache) Get(key int) int {
 		l.moveToTail(node)
 		return node.value
 	}
+
 	return -1
 }
 
-func (l *LRUCache) printList() {
-	for curr := l.head; curr != nil; curr = curr.next {
-		fmt.Printf("key: %d, val: %d ", curr.key, curr.value)
+// helper
+func (l *LRUCache) removeNode(node *Node) {
+	if node.prev != nil {
+		node.prev.next = node.next
+	} else {
+		l.head = node.next
 	}
+
+	if node.next != nil {
+		node.next.prev = node.prev
+	} else {
+		l.tail = node.prev
+	}
+}
+
+func (l *LRUCache) moveToTail(node *Node) {
+	if l.tail == node {
+		return
+	}
+
+	l.removeNode(node)
+	l.addToTail(node)
+}
+
+func (l *LRUCache) addToTail(node *Node) {
+	node.next = nil
+	node.prev = l.tail
+	if l.tail != nil {
+		l.tail.next = node
+	}
+	l.tail = node
+
+	if l.head == nil {
+		l.head = node
+	}
+}
+
+func (l *LRUCache) printList() {
+	curr := l.head
+	for curr != nil {
+		fmt.Printf("key: %d - val: %d, ", curr.key, curr.value)
+		curr = curr.next
+	}
+
 	fmt.Println()
 }
 
@@ -100,9 +107,10 @@ func main() {
 	cache.Put(2, 800)
 	cache.printList()
 
-	cache.Get(3)
+	res := cache.Get(3)
+	fmt.Println(res)
 	cache.printList()
 
-	res := cache.Get(10)
+	res = cache.Get(10)
 	fmt.Println(res)
 }
