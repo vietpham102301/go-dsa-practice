@@ -27,7 +27,7 @@ func removeKthLastNode(head *Node, k int) *Node {
 	// detach the trailer from the kth node from last
 	trailer.Next = trailer.Next.Next
 
-	return head
+	return dummyNode.Next
 }
 
 func main() {
