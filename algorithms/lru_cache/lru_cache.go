@@ -96,21 +96,27 @@ func (l *LRUCache) printList() {
 func main() {
 	cache := NewLRUCache(3)
 
+	// add when not reached capacity
 	cache.Put(1, 200)
 	cache.Put(2, 500)
 	cache.Put(3, 600)
 	cache.printList()
 
+	//evict when reach the capacity no duplicate key
 	cache.Put(4, 700)
 	cache.printList()
 
+	//update the recently used list when put duplicate key
 	cache.Put(2, 800)
 	cache.printList()
 
+	//get the key: 3
 	res := cache.Get(3)
 	fmt.Println(res)
 	cache.printList()
 
+	//get the key doesn't contain in the cache
 	res = cache.Get(10)
 	fmt.Println(res)
+
 }
