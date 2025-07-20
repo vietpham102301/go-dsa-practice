@@ -13,7 +13,7 @@ func knightsTour(x int, y int, board [][]int, step int, q *bool) {
 		return
 	}
 
-	for i := 0; (i < len(xi)) && (*q == false); i++ {
+	for i := 0; (i < 8) && (*q == false); i++ {
 		xNext := x + xi[i]
 		yNext := y + yi[i]
 		if xNext >= 0 && yNext >= 0 && xNext < boardSize && yNext < boardSize && board[xNext][yNext] == 0 {
