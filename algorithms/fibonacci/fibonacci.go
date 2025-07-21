@@ -13,8 +13,8 @@ func fibRecursive(n int) int {
 }
 
 func printFib(n int) {
-	for i := 0; i < n; i++ {
-		fmt.Println(fibonacciMemoization(i))
+	for i := 0; i <= n; i++ {
+		fmt.Println(fibonacciIter(i))
 	}
 }
 
@@ -32,6 +32,26 @@ func fibonacciMemoization(n int) int {
 	memo[n] = fibonacciMemoization(n-1) + fibonacciMemoization(n-2)
 
 	return memo[n]
+}
+
+// 0-index base fibonacci
+func fibonacciIter(n int) int {
+	first := 0
+	second := 1
+	if n == 0 {
+		return first
+	} else if n == 1 {
+		return second
+	}
+
+	var fib int
+	for i := 2; i <= n; i++ {
+		fib = first + second
+		first = second
+		second = fib
+	}
+
+	return fib
 }
 
 func main() {
