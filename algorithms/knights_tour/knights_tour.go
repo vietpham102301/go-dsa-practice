@@ -8,7 +8,7 @@ func knightsTour(x int, y int, board [][]int, step int, q *bool) {
 
 	boardSize := len(board)
 
-	if step == boardSize*boardSize {
+	if step == boardSize*boardSize+1 {
 		*q = true
 		return
 	}
@@ -38,14 +38,14 @@ func initChessBoard(size int) [][]int {
 func printChessBoard(board [][]int) {
 	for i := 0; i < len(board); i++ {
 		for j := 0; j < len(board[i]); j++ {
-			fmt.Printf("| - %d - |", board[i][j])
+			fmt.Printf("| %2d", board[i][j])
 		}
-		fmt.Println()
+		fmt.Println("|")
 	}
 }
 
 func main() {
-	board := initChessBoard(5)
+	board := initChessBoard(8)
 
 	q := new(bool)
 
